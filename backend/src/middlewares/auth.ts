@@ -12,7 +12,7 @@ declare global {
 }
 
 const auth = (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers.authorization;
+  const authHeader = `Bearer ${req.cookies.token || ""}`;
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({
       success: false,

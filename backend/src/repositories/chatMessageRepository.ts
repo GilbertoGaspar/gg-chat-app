@@ -2,10 +2,11 @@ import { ChatMessage } from "../models/ChatMessage";
 
 export const saveMessage = async (
   room: string,
-  user: string,
+  userEmail: string,
+  userId: string,
   message: string
 ) => {
-  const chatMessage = new ChatMessage({ room, user, message });
+  const chatMessage = new ChatMessage({ room, userEmail, userId, message });
   return await chatMessage.save();
 };
 

@@ -13,6 +13,13 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
       expiresIn: EXPIRE,
     });
 
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+    });
+
     res.status(201).json({
       success: true,
       data: {
@@ -35,6 +42,13 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
       expiresIn: EXPIRE,
+    });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
     });
 
     res.status(200).json({

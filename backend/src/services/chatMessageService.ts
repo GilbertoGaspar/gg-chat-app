@@ -6,11 +6,12 @@ import {
 
 export const addMessage = async (
   room: string,
-  user: string,
+  userEmail: string,
+  userId: string,
   message: string
 ): Promise<IChatMessage> => {
   try {
-    const chatMessage = await saveMessage(room, user, message);
+    const chatMessage = await saveMessage(room, userEmail, userId, message);
     return chatMessage;
   } catch (error: any) {
     throw new Error("Error saving message: " + error.message);
