@@ -16,9 +16,17 @@ export function ChatRoom({ roomId }: { roomId: string }) {
     setMessageInput(e.target.value);
   };
 
+  const onEnterKeyDown = (e: { key: string }) => {
+    if (e.key === "Enter" && !!messageInput.trim()) {
+      onSendMessage();
+    }
+  };
+
   const onSendMessage = () => {
-    sendMessage(messageInput);
-    setMessageInput("");
+    if (!!messageInput.trim()) {
+      sendMessage(messageInput);
+      setMessageInput("");
+    }
   };
 
   useEffect(() => {
@@ -58,6 +66,7 @@ export function ChatRoom({ roomId }: { roomId: string }) {
             value={messageInput}
             onChange={onInputChange}
             placeholder="Type your message here."
+            onKeyDown={onEnterKeyDown}
           ></input>
           <button
             className="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300   dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 block rounded-md px-3 py-2 text-base font-medium"
