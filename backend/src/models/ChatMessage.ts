@@ -1,9 +1,9 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 export interface IChatMessage extends Document {
   room: string;
   userEmail: string;
-  userId: string;
+  userId: Types.ObjectId;
   message: string;
   timestamp: Date;
 }
@@ -11,7 +11,7 @@ export interface IChatMessage extends Document {
 const ChatMessageSchema = new Schema({
   room: { type: String, required: true, index: true },
   userEmail: { type: String, required: true },
-  userId: { type: String, required: true },
+  userId: { type: Schema.Types.ObjectId, required: true, ref: "User" },
   message: { type: String, required: true },
   timestamp: { type: Date, default: Date.now, index: true },
 });
